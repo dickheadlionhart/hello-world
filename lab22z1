@@ -1,0 +1,48 @@
+#include <iostream>
+#include <string.h>
+#include <Windows.h>
+#include <fstream>
+#include <string>
+
+using namespace std;
+
+struct student
+{
+	string name;
+	int kurs;
+	float rating;
+};
+
+student makestudent()
+{
+	student person;
+	cout << "Введите данные студента:\nИмя:\n";
+	cin>> person.name;
+	cout << "Курс:\n";
+	cin >> person.kurs;
+	cout << "Рейтинг:\n";
+	cin >> person.rating;
+	return person;
+}
+
+void printstudent(student person)
+{
+	cout <<"\n" <<person.name << " " << person.kurs << " " << person.rating<<"\n";
+}
+
+void main()
+{
+	SetConsoleOutputCP(1251);
+	ofstream f("C://Users//DEXP//Desktop//out.dat", ios::binary);
+	int n;
+	cout << "Введите количество студентов:\n";
+	cin >> n;
+	student *a_st = new student[n];
+	for (int i = 0; i < n; i++)
+		a_st[i] = makestudent();
+	for (int i = 0; i < n; i++)
+		printstudent(a_st[i]);
+	f.write((char *)a_st, sizeof(a_st));
+	f.close();
+	system("pause");
+}
